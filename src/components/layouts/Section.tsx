@@ -7,7 +7,7 @@ interface Props {
 
 export default function Section({ children, className = "" }: Props) {
   return (
-    <section className={`${className} flex flex-col w-full`}>
+    <section className={`${className} py-10 flex flex-col w-full`}>
       {children}
     </section>
   );
