@@ -1,6 +1,6 @@
 import { Info } from "lucide-react";
 
-export default function About() {
+export default function Guide() {
   const itemStyles = "border-b border-neutral-600 pb-6";
   const titleStyles = "font-bold mb-2";
   const textListStyles = "flex flex-col gap-1";
