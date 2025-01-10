@@ -9,17 +9,22 @@ import StatsItem from "../components/stats/StatsItem.tsx";
 import TypingTimer from "../components/typing/TypingTimer.tsx";
 import StartStopButton from "../components/typing/StartStopButton.tsx";
 import TypingArea from "../components/typing/TypingArea.tsx";
+import { Ban, Rabbit, Target } from "lucide-react";
 
 export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [text, setText] = useState("");
-  const [seconds, setSeconds] = useState(60);
   const [userText, setUserText] = useState("");
+
+  const [seconds, setSeconds] = useState(60);
   const [started, setStarted] = useState(false);
+
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
   const [accuracy, setAccuracy] = useState(100);
   const [speed, setSpeed] = useState(0);
+  const [errors, setErrors] = useState(0);
 
   const getRandomSentence = (data: { sentence: string }[]) => {
     const randomIndex = Math.floor(Math.random() * data.length);
@@ -36,14 +41,21 @@ export default function HomePage() {
       if (value.length >= userText.length) {
         setUserText(value);
 
-        const correctChars = value
-          .split("")
-          .filter((char, index) => char === text[index]).length;
+        let errorsCount = 0;
+
+        const correctChars = value.split("").filter((char, index) => {
+          if (char !== text[index]) {
+            errorsCount++;
+          }
+          return char === text[index];
+        }).length;
         const accuracyPercentage = (correctChars / value.length) * 100;
 
         setAccuracy(
           isNaN(accuracyPercentage) ? 0 : Math.floor(accuracyPercentage),
         );
+
+        setErrors(errorsCount);
 
         const timeElapsed = (60 - seconds) / 60;
         const wordsTyped = value.length / 5;
@@ -79,6 +91,7 @@ export default function HomePage() {
       setStarted(true);
       setAccuracy(100);
       setSpeed(0);
+      setErrors(0);
 
       if (textareaRef.current) {
         textareaRef.current.focus();
@@ -103,10 +116,11 @@ export default function HomePage() {
           onChangeText={handleChangeText}
         />
 
-        {text !== "" && (
+        {text !== "" && !started && (
           <StatsList>
-            <StatsItem title={"WPM"} value={speed} />
-            <StatsItem title={"Accuracy"} value={accuracy} />
+            <StatsItem title={"WPM"} value={speed} icon={<Rabbit />} />
+            <StatsItem title={"Accuracy"} value={accuracy} icon={<Target />} />
+            <StatsItem title={"Errors"} value={errors} icon={<Ban />} />
           </StatsList>
         )}
       </Container>

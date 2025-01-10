@@ -17,7 +17,7 @@ export default forwardRef<HTMLTextAreaElement, Props>(function TypingArea(
     }
 
     if (!userText[index]) {
-      return "text-neutral-400";
+      return "text-neutral-600";
     }
 
     if (userText[index] === text[index]) {
@@ -41,7 +41,7 @@ export default forwardRef<HTMLTextAreaElement, Props>(function TypingArea(
         <Guide />
       )}
       <textarea
-        ref={ref} // Прив'язка переданого рефа
+        ref={ref}
         value={userText}
         onChange={(event) => onChangeText(event.target.value)}
         className="absolute bg-transparent top-0 left-0 w-full h-full resize-none outline-none opacity-0"
