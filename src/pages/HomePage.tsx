@@ -10,6 +10,8 @@ import TypingTimer from "../components/typing/TypingTimer.tsx";
 import StartStopButton from "../components/typing/StartStopButton.tsx";
 import TypingArea from "../components/typing/TypingArea.tsx";
 import { Ban, Rabbit, Target } from "lucide-react";
+import GuideOpenButton from "../components/guide/GuideOpenButton.tsx";
+import Guide from "../components/guide/Guide.tsx";
 
 export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -21,6 +23,7 @@ export default function HomePage() {
   const [started, setStarted] = useState(false);
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isGuideVisible, setIsGuideVisible] = useState(false);
 
   const [accuracy, setAccuracy] = useState(100);
   const [speed, setSpeed] = useState(0);
@@ -99,6 +102,10 @@ export default function HomePage() {
     }
   };
 
+  const handleToggleGuide = () => {
+    setIsGuideVisible(!isGuideVisible);
+  };
+
   return (
     <Section className="flex-grow">
       <Container className="flex flex-col items-center justify-center">
@@ -106,7 +113,21 @@ export default function HomePage() {
           className={`mb-10 flex ${started ? "w-full flex-row items-end justify-between" : "flex-col"}`}
         >
           {started && <TypingTimer seconds={seconds} />}
-          <StartStopButton onClick={handleToggleTyping} isStarting={started} />
+          <div className="flex items-center gap-6">
+            <StartStopButton
+              onClick={handleToggleTyping}
+              isStarting={started}
+            />
+            {!started && (
+              <>
+                <GuideOpenButton onClick={handleToggleGuide} />
+                <Guide
+                  isVisible={isGuideVisible}
+                  onCloseGuide={handleToggleGuide}
+                />
+              </>
+            )}
+          </div>
         </div>
 
         <TypingArea

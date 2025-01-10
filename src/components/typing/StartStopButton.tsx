@@ -13,7 +13,7 @@ export default function StartStopButton({ onClick, isStarting }: Props) {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.8 }}
       onClick={onClick}
-      className={`ml-auto flex items-center gap-3 ${isStarting ? "bg-red-700" : "bg-green-700"} p-4 rounded-xl text-xl font-bold transition-opacity hover:opacity-70`}
+      className={`h-16 ml-auto flex items-center gap-3 ${isStarting ? "bg-red-700" : "bg-green-700"} p-4 rounded-xl text-xl font-bold transition-opacity hover:opacity-70`}
     >
       {isStarting ? (
         <>

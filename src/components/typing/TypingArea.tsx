@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import Guide from "../guide/Guide.tsx";
 
 interface Props {
   text: string;
@@ -29,7 +28,7 @@ export default forwardRef<HTMLTextAreaElement, Props>(function TypingArea(
 
   return (
     <div className="font-bold text-2xl relative">
-      {text !== "" ? (
+      {text !== "" && (
         <p className="text-center bg-neutral-800 shadow-sm p-4 rounded-xl">
           {text.split("").map((char, index) => (
             <span key={index} className={getColor(text, index)}>
@@ -37,8 +36,6 @@ export default forwardRef<HTMLTextAreaElement, Props>(function TypingArea(
             </span>
           ))}
         </p>
-      ) : (
-        <Guide />
       )}
       <textarea
         ref={ref}
