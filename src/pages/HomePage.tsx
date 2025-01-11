@@ -14,8 +14,10 @@ import GuideOpenButton from "../components/guide/GuideOpenButton.tsx";
 import Guide from "../components/guide/Guide.tsx";
 import { useAuth } from "../firebase/authContext.tsx";
 import LoginButton from "../components/auth/LoginButton.tsx";
-import UserInfo from "../components/auth/UserInfo.tsx";
+import UserInfo from "../components/user/UserInfo.tsx";
 import LogoutButton from "../components/auth/LogoutButton.tsx";
+import { addGameResult } from "../firebase/history.ts";
+import UserHistory from "../components/user/UserHistory.tsx";
 
 export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -73,12 +75,15 @@ export default function HomePage() {
     }
   };
 
-  const handleToggleTyping = () => {
+  const handleToggleTyping = async () => {
     if (started) {
       if (timer) {
         clearInterval(timer);
         setSeconds(60);
         setTimer(null);
+      }
+      if (user?.uid) {
+        await addGameResult(user?.uid, { speed, errors, accuracy });
       }
       setStarted(false);
     } else {
@@ -158,6 +163,7 @@ export default function HomePage() {
             <StatsItem title={"Errors"} value={errors} icon={<Ban />} />
           </StatsList>
         )}
+        <UserHistory />
       </Container>
     </Section>
   );

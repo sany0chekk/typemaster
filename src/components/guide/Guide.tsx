@@ -23,7 +23,7 @@ export default function Guide({ isVisible, onCloseGuide }: Props) {
           exit={{ opacity: 0, scale: 0 }}
           className="fixed top-0 left-0 w-full h-full p-4 backdrop-blur-lg flex items-center justify-center z-20"
         >
-          <div className="bg-neutral-800 p-10 rounded-xl shadow-md font-normal text-base relative">
+          <div className=" bg-neutral-800 p-10 max-h-full h-auto overflow-y-auto rounded-xl shadow-md font-normal text-base absolute max-md:top-0 max-md:left-0 md:relative">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.8 }}
