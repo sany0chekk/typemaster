@@ -115,11 +115,11 @@ export default function HomePage() {
     <Section className="flex-grow">
       <Container className="flex flex-col items-center justify-center">
         <div
-          className={`mb-10 flex ${started ? "w-full flex-row items-end justify-between" : "flex-col items-center"}`}
+          className={`mb-10 flex ${started ? "w-full flex-row items-end justify-between" : "flex-col items-center justify-center"}`}
         >
           {user && !started && <UserInfo user={user} />}
           {started && <TypingTimer seconds={seconds} />}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center justify-center flex-wrap gap-6">
             <StartStopButton
               onClick={handleToggleTyping}
               isStarting={started}
@@ -137,10 +137,10 @@ export default function HomePage() {
             {!user && !started && <LoginButton />}
           </div>
           {!started && !user && (
-            <p className="text-semibold text-sm opacity-40 mt-2">
+            <div className="text-semibold text-sm opacity-40 mt-2">
               *Statistics and additional features are available exclusively to
               authenticated users.
-            </p>
+            </div>
           )}
         </div>
 
