@@ -12,9 +12,14 @@ import TypingArea from "../components/typing/TypingArea.tsx";
 import { Ban, Rabbit, Target } from "lucide-react";
 import GuideOpenButton from "../components/guide/GuideOpenButton.tsx";
 import Guide from "../components/guide/Guide.tsx";
+import { useAuth } from "../firebase/authContext.tsx";
+import LoginButton from "../components/auth/LoginButton.tsx";
+import UserInfo from "../components/auth/UserInfo.tsx";
+import LogoutButton from "../components/auth/LogoutButton.tsx";
 
 export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { user } = useAuth();
 
   const [text, setText] = useState("");
   const [userText, setUserText] = useState("");
@@ -110,8 +115,9 @@ export default function HomePage() {
     <Section className="flex-grow">
       <Container className="flex flex-col items-center justify-center">
         <div
-          className={`mb-10 flex ${started ? "w-full flex-row items-end justify-between" : "flex-col"}`}
+          className={`mb-10 flex ${started ? "w-full flex-row items-end justify-between" : "flex-col items-center"}`}
         >
+          {user && !started && <UserInfo user={user} />}
           {started && <TypingTimer seconds={seconds} />}
           <div className="flex items-center gap-6">
             <StartStopButton
@@ -127,7 +133,15 @@ export default function HomePage() {
                 />
               </>
             )}
+            {user && !started && <LogoutButton />}
+            {!user && !started && <LoginButton />}
           </div>
+          {!started && !user && (
+            <p className="text-semibold text-sm opacity-40 mt-2">
+              *Statistics and additional features are available exclusively to
+              authenticated users.
+            </p>
+          )}
         </div>
 
         <TypingArea
