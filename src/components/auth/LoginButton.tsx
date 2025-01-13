@@ -1,11 +1,9 @@
+import Button from "../ui/button.tsx";
 import { signInWithGoogle } from "../../firebase/auth.ts";
-import * as motion from "motion/react-client";
 
 export default function LoginButton() {
   return (
-    <motion.button
-      whileHover={{ scale: 1.05, opacity: 0.7 }}
-      whileTap={{ scale: 0.8 }}
+    <Button
       onClick={signInWithGoogle}
       className="px-6 h-16 flex items-center justify-center gap-2 bg-neutral-700 rounded-xl"
     >
@@ -16,6 +14,6 @@ export default function LoginButton() {
         alt="google logo"
       />
       <span className="font-bold text-lg">Login with Google</span>
-    </motion.button>
+    </Button>
   );
 }

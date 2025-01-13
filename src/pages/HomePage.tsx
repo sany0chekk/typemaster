@@ -1,6 +1,6 @@
 import Section from "../components/layouts/Section.tsx";
 import Container from "../components/layouts/Container.tsx";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import sentences from "../api/sentences.json";
 
@@ -16,8 +16,10 @@ import { useAuth } from "../firebase/authContext.tsx";
 import LoginButton from "../components/auth/LoginButton.tsx";
 import UserInfo from "../components/user/UserInfo.tsx";
 import LogoutButton from "../components/auth/LogoutButton.tsx";
-import { addGameResult } from "../firebase/history.ts";
+import { addGameResult, fetchGameHistory } from "../firebase/history.ts";
 import UserHistory from "../components/user/UserHistory.tsx";
+import UserHistoryOpenButton from "../components/user/UserHistoryOpenButton.tsx";
+import { GameHistory } from "../types/history.ts";
 
 export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -25,16 +27,29 @@ export default function HomePage() {
 
   const [text, setText] = useState("");
   const [userText, setUserText] = useState("");
+  const [userGamesHistory, setUserGamesHistory] = useState<GameHistory[]>([]);
 
   const [seconds, setSeconds] = useState(60);
   const [started, setStarted] = useState(false);
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
   const [isGuideVisible, setIsGuideVisible] = useState(false);
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
   const [accuracy, setAccuracy] = useState(100);
   const [speed, setSpeed] = useState(0);
   const [errors, setErrors] = useState(0);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      if (user?.uid) {
+        const updatedHistory = await fetchGameHistory(user.uid);
+        setUserGamesHistory(updatedHistory);
+      }
+    };
+    fetchHistory();
+  }, [user]);
 
   const getRandomSentence = (data: { sentence: string }[]) => {
     const randomIndex = Math.floor(Math.random() * data.length);
@@ -82,10 +97,12 @@ export default function HomePage() {
         setSeconds(60);
         setTimer(null);
       }
+      setStarted(false);
       if (user?.uid) {
         await addGameResult(user?.uid, { speed, errors, accuracy });
+        const updatedHistory = await fetchGameHistory(user.uid);
+        setUserGamesHistory(updatedHistory);
       }
-      setStarted(false);
     } else {
       const newTimer = setInterval(() => {
         setSeconds((prevSeconds) => {
@@ -116,6 +133,10 @@ export default function HomePage() {
     setIsGuideVisible(!isGuideVisible);
   };
 
+  const handleToggleHistory = () => {
+    setIsHistoryVisible(!isHistoryVisible);
+  };
+
   return (
     <Section className="flex-grow">
       <Container className="flex flex-col items-center justify-center">
@@ -135,6 +156,16 @@ export default function HomePage() {
                 <Guide
                   isVisible={isGuideVisible}
                   onCloseGuide={handleToggleGuide}
+                />
+              </>
+            )}
+            {user && !started && (
+              <>
+                <UserHistoryOpenButton onClick={handleToggleHistory} />
+                <UserHistory
+                  isVisible={isHistoryVisible}
+                  onCloseHistory={handleToggleHistory}
+                  history={userGamesHistory}
                 />
               </>
             )}
@@ -163,7 +194,6 @@ export default function HomePage() {
             <StatsItem title={"Errors"} value={errors} icon={<Ban />} />
           </StatsList>
         )}
-        <UserHistory />
       </Container>
     </Section>
   );
