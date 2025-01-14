@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
+# TypeMaster
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TypeMaster is an engaging and educational typing practice application designed to help users improve their typing speed and accuracy while having fun. The application includes gamified features such as leveling up based on user performance.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Features
+```
+- User Authentication: Secure sign-up and log-in functionality.
+- Real-time Feedback: Instant feedback on typing speed (WPM), accuracy, 
+  and errors.
+- Progress Tracking: Visual representation of user performance over time.
+- Data Synchronization: User data is synced with Firebase for seamless 
+  access across devices.
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## Technologies Used
+```
+- Frontend: React
+- Backend: Firebase
+- Firestore for database management.
+- Authentication for user management.
+- State Management: Redux
+- Styling: TailwindCSS
 ```
