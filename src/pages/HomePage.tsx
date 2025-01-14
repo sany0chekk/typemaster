@@ -173,10 +173,10 @@ export default function HomePage() {
             {!user && !started && <LoginButton />}
           </div>
           {!started && !user && (
-            <div className="text-semibold text-sm opacity-40 mt-2">
+            <p className="text-semibold text-center text-sm opacity-40 mt-10">
               *Statistics and additional features are available exclusively to
               authenticated users.
-            </div>
+            </p>
           )}
         </div>
 

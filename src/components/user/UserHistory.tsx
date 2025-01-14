@@ -30,7 +30,7 @@ export default function UserHistory({
                 className={`${index % 2 === 0 ? "" : "bg-neutral-700"} p-3 rounded-xl grid grid-cols-2 md:grid-cols-4 gap-6 text-center`}
                 key={id}
               >
-                <td className="font-semibold text-yellow-400">
+                <td className="font-semibold max-md:text-xs text-yellow-400">
                   {date.toString()}
                 </td>
                 <td className="font-bold">{speed}</td>
@@ -41,6 +41,9 @@ export default function UserHistory({
           })}
         </tbody>
       </table>
+      <p className="text-semibold text-center text-sm opacity-40 mt-10">
+        *Only the last 10 games are displayed here
+      </p>
     </Modal>
   );
 }
