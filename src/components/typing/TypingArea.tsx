@@ -32,7 +32,7 @@ export default forwardRef<HTMLTextAreaElement, Props>(function TypingArea(
         <p className="text-center bg-neutral-800 shadow-sm p-4 rounded-xl">
           {text.split("").map((char, index) => (
             <span key={index} className={getColor(text, index)}>
-              {char}
+              {index === userText.length && char === " " ? "_" : char}
             </span>
           ))}
         </p>

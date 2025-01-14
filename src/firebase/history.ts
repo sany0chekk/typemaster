@@ -29,8 +29,7 @@ export async function addGameResult(
   };
 
   try {
-    const docRef = await addDoc(historyRef, gameResult);
-    console.log("docRef", docRef);
+    await addDoc(historyRef, gameResult);
   } catch (error) {
     console.error(error);
   }
