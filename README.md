@@ -18,7 +18,7 @@ TypeMaster is an engaging and educational typing practice application designed t
 - Backend: Firebase
 - Firestore for database management.
 - Authentication for user management.
-- State Management: Redux
+- State Management: React Context API
 - Styling: TailwindCSS
 ```
 
