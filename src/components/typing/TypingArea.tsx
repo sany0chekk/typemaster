@@ -27,7 +27,7 @@ export default forwardRef<HTMLTextAreaElement, Props>(function TypingArea(
   };
 
   return (
-    <div className="font-bold text-2xl relative">
+    <div className="font-sourceCode leading-relaxed font-semibold text-3xl relative">
       {text !== "" && (
         <p className="text-center bg-neutral-800 shadow-sm p-4 rounded-xl">
           {text.split("").map((char, index) => (

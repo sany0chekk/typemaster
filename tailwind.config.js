@@ -7,6 +7,9 @@ export default {
         bg: "#222222",
         text: "#ffffff",
       },
+      fontFamily: {
+        sourceCode: "var(--typing-font)",
+      },
     },
   },
   plugins: [],
