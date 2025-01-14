@@ -21,3 +21,7 @@ TypeMaster is an engaging and educational typing practice application designed t
 - State Management: Redux
 - Styling: TailwindCSS
 ```
+
+## Contact
+- Email: o.veselyi.dev@gmail.com
+- GitHub: [sany0chekk](https://github.com/sany0chekk)
